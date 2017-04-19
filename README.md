@@ -1,7 +1,7 @@
 # DeathBot
 Action side-scroller similar to MegaMan and Metroid
 
-Feature ideas:
+Feature ideas: <br>
 -jet pack <br>
 -shield <br>
 -jet skiing on slopes like Tribes (unlikely) <br>
