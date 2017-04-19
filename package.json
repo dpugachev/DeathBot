@@ -1,0 +1,17 @@
+{
+  "name": "marmel",
+  "version": "1.0.0",
+  "description": "phaser game project",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dimitri",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "phaser-ce": "^2.7.5"
+  }
+}
