@@ -2,11 +2,12 @@
 Action side-scroller similar to MegaMan and Metroid
 
 Feature ideas:
--jet pack
--shield
--jet skiing on slopes like Tribes (unlikely)
--close combat moves like sword
--non-linear metrovania structure 
--travelling to different planets
--laser pistols, automatic rifles, grenade launchers
--hostages to rescue
+-jet pack <br>
+-shield <br>
+-jet skiing on slopes like Tribes (unlikely) <br>
+-close combat moves like sword <br>
+-non-linear metrovania structure <br>
+-travelling to different planets <br>
+-laser pistols, automatic rifles, grenade launchers <br>
+-hostages to rescue <br>
+ 
