@@ -9,6 +9,12 @@ DeathBot.Player = function (game, x, y){
     this.physics = game.physics.arcade;
     this.physics.enable(this);
 
+    this.stateManager = new DeathBot.AnimationStateManager();
+    this.running = new DeathBot.AnimationState();
+    this.jumping = new DeathBot.AnimationState();
+    this.standing = new DeathBot.AnimationState();
+    this.stateManager.add([this.running, this.jumping, this.standing]);
+
 };
 
 DeathBot.Player.prototype = Object.create(Phaser.Sprite.prototype);
