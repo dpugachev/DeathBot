@@ -1,10 +1,10 @@
-var BasicGame = {};
+var DeathBot = {};
 
-BasicGame.Boot = function (game) {
+DeathBot.Boot = function (game) {
 
 };
 
-BasicGame.Boot.prototype = {
+DeathBot.Boot.prototype = {
 
     init: function () {
 

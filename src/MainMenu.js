@@ -1,12 +1,12 @@
 
-BasicGame.MainMenu = function (game) {
+DeathBot.MainMenu = function (game) {
 
 	this.music = null;
 	this.playButton = null;
 
 };
 
-BasicGame.MainMenu.prototype = {
+DeathBot.MainMenu.prototype = {
 
 	create: function () {
 

@@ -1,107 +1,110 @@
 
-BasicGame.Game = function (game) {
+
+
+DeathBot.Game = function (game) {
+
+    this.player;
+    this.map;
+    this.layer1;
+    this.layer2;
+    this.bg;
+    this.cursors;
+    this.jumpButton;
+    this.jumpTimer = 0;
+    this.facing = 'right';
 
 };
 
-var map;
-var layer1;
-var layer2;
-var player;
-var bg;
-var cursors;
-var jumpButton;
-var jumpTimer = 0;
-var facing = 'left';
-
-BasicGame.Game.prototype = {
+DeathBot.Game.prototype = {
 
     create: function () {
 
 
         this.physics.startSystem(Phaser.Physics.ARCADE);
-        bg  = this.add.tileSprite(0, 0, 640, 480, 'sky');
-        bg.fixedToCamera = true;
-        map = this.add.tilemap('level1');
-        map.addTilesetImage('tileOutdoors');
-        map.setCollisionByExclusion([]);
+        this.bg  = this.add.tileSprite(0, 0, 640, 480, 'sky');
+        this.bg.fixedToCamera = true;
+        this.map = this.add.tilemap('level1');
+        this.map.addTilesetImage('tileOutdoors');
+        this.map.setCollisionByExclusion([]);
 
-        layer1 = map.createLayer('Foreground');
-        layer1.resizeWorld();
-        layer2 = map.createLayer('Background');
-        layer2.resizeWorld();
+        this.layer1 = this.map.createLayer('Foreground');
+        this.layer1.resizeWorld();
+        this.layer2 = this.map.createLayer('Background');
+        this.layer2.resizeWorld();
 
         this.physics.arcade.gravity.y = 250;
 
-        player = this.add.sprite(0, 12, 'player');
-        this.physics.enable(player, Phaser.Physics.ARCADE);
+        this.player = this.add.sprite(45, 380, 'player');
+        this.physics.enable([this.player, this.layer1], Phaser.Physics.ARCADE);
 
-        player.body.bounce.y = 0.1;
-        player.body.collideWorldBounds = true;
-        player.body.setSize(50, 50, 0, 0);
+        this.player.body.bounce.y = 0.1;
+        this.player.body.collideWorldBounds = true;
+        this.player.body.setSize(37, 46, 0, 0);
 
-        player.animations.add('left', [20, 21, 22, 23, 24, 25, 26, 27], 10, true);
-        player.animations.add('idle', [0], 20, true);
-        player.animations.add('right', [8, 9, 10, 11, 12, 13, 14, 15], 10, true);
-        player.animations.add('jump', [3], 20, true);
+        this.player.animations.add('left', [20, 21, 22, 23, 24, 25, 26, 27], 8, true);
+        this.player.animations.add('idle left', [0], 5, true);
+        this.player.animations.add('idle right', [4], 5, true);
+        this.player.animations.add('right', [8, 9, 10, 11, 12, 13, 14, 15], 8, true);
+        this.player.animations.add('jump', [2, 3, 2], 1, false);
 
-        this.camera.follow(player);
+        this.camera.follow(this.player);
 
-        cursors = this.input.keyboard.createCursorKeys();
-        jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     },
 
     update: function () {
 
-        this.physics.arcade.collide(player, layer1);
+        this.physics.arcade.collide(this.player, this.layer1);
 
-        player.body.velocity.x = 0;
+        this.player.body.velocity.x = 0;
 
-        if (cursors.left.isDown)
+        if (this.cursors.left.isDown)
         {
-            player.body.velocity.x = -150;
+            this.player.body.velocity.x = -150;
 
-            if (facing != 'left')
+            if (this.facing != 'left')
             {
-                player.animations.play('left');
-                facing = 'left';
+                this.player.animations.play('left');
+                this.facing = 'left';
             }
         }
-        else if (cursors.right.isDown)
+        else if (this.cursors.right.isDown)
         {
-            player.body.velocity.x = 150;
+            this.player.body.velocity.x = 150;
 
-            if (facing != 'right')
+            if (this.facing != 'right')
             {
-                player.animations.play('right');
-                facing = 'right';
+                this.player.animations.play('right');
+                this.facing = 'right';
             }
         }
         else
         {
-            if (facing != 'idle')
+            if (this.facing != 'idle right')
             {
-                player.animations.play('idle');
+                this.player.animations.stop();
 
-                if (facing == 'left')
+                if (this.facing == 'left')
                 {
-                    player.frame = 0;
+                    this.player.animations.play('idle right');
                 }
                 else
                 {
-                    player.frame = 5;
+                    this.player.animations.play('idle left');
                 }
 
-                facing = 'idle';
+                this.facing = 'idle right';
             }
         }
 
-        if (jumpButton.isDown && player.body.onFloor() && this.game.time.now > jumpTimer)
+        if (this.jumpButton.isDown && this.player.body.onFloor() && this.game.time.now > this.jumpTimer)
         {
-            player.body.velocity.y = -200;
-            jumpTimer = this.game.time.now + 750;
+            this.player.body.velocity.y = -200;
+            this.jumpTimer = this.game.time.now + 750;
 
-            player.animations.play('jump');
+            this.player.animations.play('jump');
 
         }
 
@@ -115,6 +118,10 @@ BasicGame.Game.prototype = {
         //  Then let's go back to the main menu.
         this.state.start('MainMenu');
 
+    },
+
+    render: function () {
+        this.game.debug.body(this.player);
     }
 
 };
