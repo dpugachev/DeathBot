@@ -29,6 +29,7 @@ DeathBot.Preloader.prototype = {
         this.load.tilemap('level1', 'assets/tiles/level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tileOutdoors', 'assets/tiles/tileOutdoors.png');
         this.load.atlasJSONHash('player', 'assets/sprites/player-1.png', 'assets/sprites/player-1.json');
+        this.load.atlasJSONHash('bullet', 'assets/sprites/bullet.png', 'assets/sprites/bullet.json');
         //this.load.audio('titleMusic', ['audio/main_menu.mp3']);
         //this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
         //	+ lots of other required assets here

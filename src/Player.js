@@ -9,6 +9,10 @@ DeathBot.Player = function (game, x, y) {
     this.jumpTimer = 0;
     this.anchor.set(0.5, 1);
 
+    this.weapon = this.game.add.weapon(10, 'bullet');
+    this.weapon.fireRate = 100;
+    this.weapon.trackSprite(this, 0, 0, true);
+
     this.physics = game.physics.arcade;
     this.physics.enable(this);
 
@@ -26,6 +30,7 @@ DeathBot.Player = function (game, x, y) {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.fireButton = this.game.input.keyboard.addKey(Phaser.KeyCode.ENTER);
 
 };
 
@@ -72,6 +77,10 @@ DeathBot.Player.prototype.update = function () {
         this.jumpTimer = this.game.time.now + 750;
         this.animations.play('jump');
 
+    }
+
+    if (this.fireButton.isDown){
+        this.weapon.fire();
     }
 
 
