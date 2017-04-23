@@ -12,9 +12,9 @@ DeathBot.Player = function (game, x, y){
 };
 
 DeathBot.Player.prototype = Object.create(Phaser.Sprite.prototype);
-DeathBot.prototype.constructor = DeathBot.Player;
+DeathBot.Player.prototype.constructor = DeathBot.Player;
 
-DeathBot.prototype.update = function () {
+DeathBot.Player.prototype.update = function () {
 
 
 };

@@ -34,7 +34,8 @@ DeathBot.Game.prototype = {
 
         this.physics.arcade.gravity.y = 250;
 
-        this.player = this.add.sprite(45, 380, 'player');
+        this.player = new DeathBot.Player(this.game, 45, 380);
+        this.add.existing(this.player);
         this.physics.enable([this.player, this.layer1], Phaser.Physics.ARCADE);
 
         this.player.body.bounce.y = 0.1;
