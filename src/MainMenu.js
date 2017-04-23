@@ -1,4 +1,3 @@
-
 DeathBot.MainMenu = function (game) {
 
 	this.music = null;
