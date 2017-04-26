@@ -9,9 +9,11 @@ DeathBot.Player = function (game, x, y) {
     this.jumpTimer = 0;
     this.anchor.set(0.5, 1);
 
-    this.weapon = this.game.add.weapon(10, 'bullet');
-    this.weapon.fireRate = 100;
-    this.weapon.trackSprite(this, 0, 0, true);
+    this.weapon = this.game.add.weapon(2, 'bullet');
+    this.weapon.addBulletAnimation('fire', [0, 1, 2, 3], 10);
+    this.weapon.bulletSpeed = 300;
+    this.weapon.fireRate = 500;
+    this.weapon.trackSprite(this, 20, -30, true);
 
     this.physics = game.physics.arcade;
     this.physics.enable(this);
@@ -44,7 +46,7 @@ DeathBot.Player.prototype.update = function () {
     if (this.cursors.left.isDown) {
         this.body.velocity.x = -150;
 
-        if (this.facing != 'left' && this.currentAnim != 'jump') {
+        if (this.facing !== 'left' && this.currentAnim !== 'jump') {
             this.animations.play('left');
             this.facing = 'left';
         }
@@ -52,16 +54,16 @@ DeathBot.Player.prototype.update = function () {
     else if (this.cursors.right.isDown) {
         this.body.velocity.x = 150;
 
-        if (this.facing != 'right') {
+        if (this.facing !== 'right') {
             this.animations.play('right');
             this.facing = 'right';
         }
     }
     else {
-        if (this.facing != 'idle right') {
+        if (this.facing !== 'idle right') {
             this.animations.stop();
 
-            if (this.facing == 'left') {
+            if (this.facing === 'left') {
                 this.animations.play('idle right');
             }
             else {
@@ -82,6 +84,9 @@ DeathBot.Player.prototype.update = function () {
     if (this.fireButton.isDown){
         this.weapon.fire();
     }
+
+    this.weapon.debug(16, 32, false);
+
 
 
 };
