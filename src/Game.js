@@ -4,7 +4,9 @@ DeathBot.Game = function (game) {
     this.map;
     this.layer1;
     this.layer2;
+    this.sky;
     this.bg;
+    this.fg;
     this.cursors;
 
 };
@@ -16,8 +18,11 @@ DeathBot.Game.prototype = {
 
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.sortDirection = 1;
-        this.bg = this.add.sprite(this.world.centerX, this.world.centerY, 'sky');
-        this.bg.fixedToCamera = true;
+        this.sky = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'sky');
+        this.sky.fixedToCamera = true;
+        this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'citybg');
+
+
 
         this.map = this.add.tilemap('level1');
         this.map.addTilesetImage('tileOutdoors');
@@ -54,7 +59,7 @@ DeathBot.Game.prototype = {
     },
 
     render: function () {
-       // this.game.debug.body(this.player);
+       this.game.debug.body(this.player);
     }
 
 };

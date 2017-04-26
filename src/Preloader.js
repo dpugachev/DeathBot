@@ -24,7 +24,9 @@ DeathBot.Preloader.prototype = {
         //	Here we load the rest of the assets our game needs.
         //	As this is just a Project Template I've not provided these assets, swap them for your own.
         this.load.image('titlepage', 'assets/sprites/bgMain.png');
-        this.load.image('sky', 'assets/sprites/country-platform-back.png');
+        this.load.image('sky', 'assets/sprites/sky.png');
+        this.load.image('citybg' , 'assets/sprites/City_Background.png');
+        this.load.image('cityfg', 'assets/sprites/City_Foreground.png');
         this.load.spritesheet('playButton', 'assets/sprites/btnStart.png', 100, 50);
         this.load.tilemap('level1', 'assets/tiles/level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tileOutdoors', 'assets/tiles/tileOutdoors.png');

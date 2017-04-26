@@ -18,15 +18,14 @@ DeathBot.Player = function (game, x, y) {
     this.physics = game.physics.arcade;
     this.physics.enable(this);
 
-    this.animations.add('left', [20, 21, 22, 23, 24, 25, 26, 27], 8, true);
-    this.animations.add('idle left', [0], 5, true);
-    this.animations.add('idle right', [4], 5, true);
-    this.animations.add('right', [8, 9, 10, 11, 12, 13, 14, 15], 8, true);
+    this.animations.add('run', [20, 21, 22, 23, 24, 25, 26, 27], 8, true);
+    this.animations.add('idle', [4], 5, true);
     this.animations.add('jump', [2, 3, 2], 1, false);
 
     this.body.bounce.y = 0.1;
     this.body.collideWorldBounds = true;
     this.body.setSize(37, 46, 0, 0);
+    this.body.drag = {x: 1000, y: 0};
 
     this.game.camera.follow(this);
 
@@ -41,37 +40,23 @@ DeathBot.Player.prototype.constructor = DeathBot.Player;
 
 DeathBot.Player.prototype.update = function () {
 
-    this.body.velocity.x = 0;
+
 
     if (this.cursors.left.isDown) {
         this.body.velocity.x = -150;
+        this.scale.x = 1;
+        this.animations.play('run');
 
-        if (this.facing !== 'left' && this.currentAnim !== 'jump') {
-            this.animations.play('left');
-            this.facing = 'left';
-        }
     }
     else if (this.cursors.right.isDown) {
         this.body.velocity.x = 150;
+        this.scale.x = -1;
+        this.animations.play('run');
 
-        if (this.facing !== 'right') {
-            this.animations.play('right');
-            this.facing = 'right';
-        }
     }
-    else {
-        if (this.facing !== 'idle right') {
-            this.animations.stop();
 
-            if (this.facing === 'left') {
-                this.animations.play('idle right');
-            }
-            else {
-                this.animations.play('idle left');
-            }
-
-            this.facing = 'idle right';
-        }
+    if (Math.abs(this.body.velocity.x) < 4) {
+        this.animations.play('idle');
     }
 
     if (this.jumpButton.isDown && this.body.onFloor() && this.game.time.now > this.jumpTimer) {
