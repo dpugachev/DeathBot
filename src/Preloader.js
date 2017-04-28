@@ -28,8 +28,9 @@ DeathBot.Preloader.prototype = {
         this.load.image('citybg' , 'assets/sprites/City_Background.png');
         this.load.image('cityfg', 'assets/sprites/City_Foreground.png');
         this.load.spritesheet('playButton', 'assets/sprites/btnStart.png', 100, 50);
-        this.load.tilemap('level1', 'assets/tiles/level1.json', null, Phaser.Tilemap.TILED_JSON);
-        this.load.image('tileOutdoors', 'assets/tiles/tileOutdoors.png');
+        this.load.tilemap('level1', 'assets/tiles/scifi1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.image('scifi', 'assets/tiles/scifi_platformTiles_32x32.png');
+        this.load.image('collision', 'assets/tiles/collision.png');
         this.load.atlasJSONHash('player', 'assets/sprites/player-1.png', 'assets/sprites/player-1.json');
         this.load.atlasJSONHash('bullet', 'assets/sprites/bullet.png', 'assets/sprites/bullet.json');
         //this.load.audio('titleMusic', ['audio/main_menu.mp3']);

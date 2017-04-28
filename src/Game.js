@@ -1,14 +1,5 @@
 DeathBot.Game = function (game) {
 
-    this.player;
-    this.map;
-    this.layer1;
-    this.layer2;
-    this.sky;
-    this.bg;
-    this.fg;
-    this.cursors;
-
 };
 
 DeathBot.Game.prototype = {
@@ -25,19 +16,27 @@ DeathBot.Game.prototype = {
 
 
         this.map = this.add.tilemap('level1');
-        this.map.addTilesetImage('tileOutdoors');
-        this.map.setCollisionByExclusion([]);
+        this.map.addTilesetImage('scifi');
+        this.map.addTilesetImage('collision');
+
+        this.layer3 = this.map.createLayer('Collision');
+        this.layer3.resizeWorld();
+        this.map.setCollisionByExclusion([], true, 'Collision');
+
+        this.layer2 = this.map.createLayer('Base');
+        this.layer2.resizeWorld();
 
         this.layer1 = this.map.createLayer('Foreground');
         this.layer1.resizeWorld();
-        this.layer2 = this.map.createLayer('Background');
-        this.layer2.resizeWorld();
+
+
+
 
         this.physics.arcade.gravity.y = 500;
 
         this.player = new DeathBot.Player(this.game, 45, 380);
         this.add.existing(this.player);
-        this.physics.enable([this.player, this.layer1], Phaser.Physics.ARCADE);
+        this.physics.enable([this.player, this.layer3], Phaser.Physics.ARCADE);
 
     },
 
@@ -59,7 +58,7 @@ DeathBot.Game.prototype = {
     },
 
     render: function () {
-       this.game.debug.body(this.player);
+      // this.game.debug.body(this.player);
     }
 
 };

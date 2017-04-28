@@ -4,23 +4,26 @@
 DeathBot.Player = function (game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'player');
 
-    this.facing = 'idle right';
-    this.jumpButton;
+    this.facing = 'left';
     this.jumpTimer = 0;
     this.anchor.set(0.5, 1);
 
-    this.weapon = this.game.add.weapon(2, 'bullet');
-    this.weapon.addBulletAnimation('fire', [0, 1, 2, 3], 10);
-    this.weapon.bulletSpeed = 300;
-    this.weapon.fireRate = 500;
+    this.weapon = this.game.add.weapon(10, 'bullet');
+    this.weapon.bulletGravity = new Phaser.Point(0, -500);
+    this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
+    this.weapon.addBulletAnimation('fire', [0, 1, 2, 3], 5);
+    this.weapon.bulletSpeed = 400;
+    this.weapon.fireRate = 250;
     this.weapon.trackSprite(this, 20, -30, true);
+
+
 
     this.physics = game.physics.arcade;
     this.physics.enable(this);
 
     this.animations.add('run', [20, 21, 22, 23, 24, 25, 26, 27], 8, true);
     this.animations.add('idle', [4], 5, true);
-    this.animations.add('jump', [2, 3, 2], 1, false);
+    this.animations.add('jump', [61, 59, 60], 4, false);
 
     this.body.bounce.y = 0.1;
     this.body.collideWorldBounds = true;
@@ -43,34 +46,43 @@ DeathBot.Player.prototype.update = function () {
 
 
     if (this.cursors.left.isDown) {
+        this.facing = 'left';
         this.body.velocity.x = -150;
         this.scale.x = 1;
-        this.animations.play('run');
+        if(this.body.onFloor()) {
+            this.animations.play('run');
+        }
 
     }
     else if (this.cursors.right.isDown) {
+        this.facing = 'right';
         this.body.velocity.x = 150;
         this.scale.x = -1;
-        this.animations.play('run');
+        if(this.body.onFloor()) {
+            this.animations.play('run');
+        }
 
     }
 
-    if (Math.abs(this.body.velocity.x) < 4) {
+    if ((Math.abs(this.body.velocity.x) < 4) && this.body.onFloor()) {
         this.animations.play('idle');
     }
 
-    if (this.jumpButton.isDown && this.body.onFloor() && this.game.time.now > this.jumpTimer) {
+    if (this.jumpButton.isDown && this.body.onFloor()) {
         this.body.velocity.y = -200;
-        this.jumpTimer = this.game.time.now + 750;
         this.animations.play('jump');
 
     }
 
-    if (this.fireButton.isDown){
-        this.weapon.fire();
+    if (this.fireButton.isDown && this.facing === 'left'){
+        this.weapon.fire(null, -10, this.y - this.height / 4, -40, 0);
+
+    }
+    else if(this.fireButton.isDown && this.facing === 'right'){
+        this.weapon.fire(null, Phaser.Camera.x, this.y - this.height / 4, 0, 0);
     }
 
-    this.weapon.debug(16, 32, false);
+    // this.weapon.debug(16, 32, false);
 
 
 
